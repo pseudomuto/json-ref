@@ -1,0 +1,11 @@
+[package]
+name        = "json-ref"
+version     = "0.1.0"
+authors     = ["David Muto (pseudomuto) <david.muto@gmail.com>"]
+description = "A simple tool for resolving/validation json-refs across documents."
+readme      = "README.md"
+repository  = "https://github.com/pseudomuto/json-ref"
+license     = "MIT"
+keywords    = ["json", "json-refs", "utilities"]
+
+[dependencies]
