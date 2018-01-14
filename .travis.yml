@@ -1,0 +1,18 @@
+language: rust
+cache: cargo
+
+rust:
+  - stable
+  - beta
+  - nightly
+
+matrix:
+  allow_failures:
+    - rust: nightly
+
+script:
+  - cargo test --verbose
+  - cargo check --verbose
+
+notifications:
+  email: false
