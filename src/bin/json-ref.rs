@@ -1,10 +1,13 @@
 extern crate clap;
 extern crate json_ref;
 
-use clap::{App, AppSettings, SubCommand};
+use std::collections::HashMap;
+
+use clap::{App, AppSettings, ArgMatches, SubCommand};
+use json_ref::Command;
 
 fn main() {
-    App::new("json-ref")
+    let matches = App::new("json-ref")
         .version(env!("CARGO_PKG_VERSION"))
         .author(env!("CARGO_PKG_AUTHORS"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
@@ -25,4 +28,23 @@ fn main() {
                 .arg_from_usage("<URI> 'The URI to validate. Can be a file or URL.'"),
         )
         .get_matches();
+
+    if let (cmd, Some(matches)) = matches.subcommand() {
+        if let Ok(c) = cmd.parse::<Command>() {
+            c.execute(args_for_command(c, &matches));
+        }
+    }
+}
+
+fn args_for_command<'a>(cmd: Command, matches: &'a ArgMatches) -> HashMap<&'a str, &'a str> {
+    let mut args = HashMap::new();
+    args.insert("URI", matches.value_of("URI").unwrap());
+
+    if cmd == Command::Resolve {
+        if matches.is_present("yaml") {
+            args.insert("yaml", "true");
+        }
+    }
+
+    args
 }
