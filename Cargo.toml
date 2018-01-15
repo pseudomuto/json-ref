@@ -9,3 +9,4 @@ license     = "MIT"
 keywords    = ["json", "json-refs", "utilities"]
 
 [dependencies]
+clap = "~2.27.0"
